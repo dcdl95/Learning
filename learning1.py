@@ -48,4 +48,5 @@ max_val = np.max(matrix)
 min_val = np.min(matrix)
 print(max_val, min_val)  # 输出 9 1
 print("****")
-print("hello world")
+print("hello china")
+print(std_val)

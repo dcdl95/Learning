@@ -14,10 +14,11 @@ def extract_data_from_xls(directory):
             # 确保不超过实际的行数
             nrows = sheet.nrows
             for row_index in range(2, min(nrows, 98)):  # 取实际行数和98中较小的一个
-                if sheet.ncols >= 4:  # 确保至少有D列（索引3）
+                if sheet.ncols >= 10:  # 确保至少有J列（索引9）
                     c_value = sheet.cell(row_index, 2).value  # C列是索引2
                     d_value = sheet.cell(row_index, 3).value  # D列是索引3
-                    data_to_write.append([c_value, d_value])
+                    j_value = sheet.cell(row_index, 9).value  # J列是索引9
+                    data_to_write.append([c_value, d_value, j_value])
 
     # 将数据写入CSV文件
     with open('output.csv', 'w', newline='') as csvfile:
@@ -26,5 +27,5 @@ def extract_data_from_xls(directory):
 
 
 # 替换为你的文件夹路径
-directory_path = 'path_to_your_xls_files'
+directory_path = '/Users/licheng/Desktop/work/宏伟食品/宏伟食品测试5.26-6.26/0231'
 extract_data_from_xls(directory_path)

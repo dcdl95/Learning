@@ -22,7 +22,7 @@ time_periods = [
 ]
 
 # 创建文件夹保存图片
-output_folder = '/Users/licheng/Desktop/work/宏伟食品/630_999'
+output_folder = '/Users/licheng/Desktop/work/宏伟食品/630_888'
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
@@ -32,41 +32,40 @@ results = []
 # 对每个时间段进行处理和绘图
 for start, end in time_periods:
     plt.figure(figsize=(12, 8))
-    time_range = pd.date_range(start='2000-01-01 ' + start, end='2000-01-01 ' + end, freq='T').time
     all_powers = []
 
     # 绘制每一天该时间段内的功率数据
     for date, day_data in data.groupby(data.index.date):
         period_data = day_data.between_time(start, end)
-        plt.plot(time_range, period_data['power'], label=f'{date} 实际功率')
-        all_powers.append(period_data['power'])
+        if not period_data.empty:
+            time_range = pd.date_range(start=period_data.index[0], periods=len(period_data), freq='min').time
+            plt.plot(time_range, period_data['power'], label=f'{date} 实际功率')
+            all_powers.append(period_data['power'])
 
-    # 如果有数据，计算并绘制最大值、最小值和平均值线
+    # 计算统计数据
     if all_powers:
         combined_powers = pd.concat(all_powers, axis=1)
-        max_power = combined_powers.max(axis=1)
-        min_power = combined_powers.min(axis=1)
-        mean_power = combined_powers.mean(axis=1)
+        max_power = combined_powers.max(axis=1).mean()
+        min_power = combined_powers.min(axis=1).mean()
+        mean_power = combined_powers.mean(axis=1).mean()
 
-        plt.plot(time_range, max_power, 'r--', label='最大功率')
-        plt.plot(time_range, min_power, 'g--', label='最小功率')
-        plt.plot(time_range, mean_power, 'b--', label='平均功率')
+        plt.plot(time_range, combined_powers.max(axis=1), 'r--', label='最大功率')
+        plt.plot(time_range, combined_powers.min(axis=1), 'g--', label='最小功率')
+        plt.plot(time_range, combined_powers.mean(axis=1), 'b--', label='平均功率')
 
-        # 保存统计结果到CSV数据
-        daily_result = {
+        # 保存每个时间段的统计结果
+        results.append({
             'time_period': f'{start}-{end}',
-            'max_power': max_power.mean(),
-            'min_power': min_power.mean(),
-            'mean_power': mean_power.mean()
-        }
-        results.append(daily_result)
+            'max_power': max_power,
+            'min_power': min_power,
+            'mean_power': mean_power
+        })
 
     plt.title(f'功率曲线 {start}-{end}')
     plt.xlabel('时间')
     plt.ylabel('功率 (kW)')
     plt.legend()
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
-    plt.gca().xaxis.set_major_locator(mdates.HourLocator(interval=1))
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))  # 设置时间格式
     plt.xticks(rotation=45)
     plt.grid(True)
     plt.savefig(os.path.join(output_folder, f'{start}-{end}.png'))
@@ -74,6 +73,6 @@ for start, end in time_periods:
 
 # 将结果转换为DataFrame并保存到CSV文件
 results_df = pd.DataFrame(results)
-results_df.to_csv('/Users/licheng/Desktop/work/宏伟食品/630_9.csv', index=False)
+results_df.to_csv('/Users/licheng/Desktop/work/宏伟食品/630_8.csv', index=False)
 
 print("分析完成，结果已保存到 output_data.csv，相关图形已保存到文件夹 " + output_folder)

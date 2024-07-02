@@ -21,11 +21,11 @@ def extract_data_from_xls(directory):
                     data_to_write.append([c_value, d_value, j_value])
 
     # 将数据写入CSV文件
-    with open('output.csv', 'w', newline='') as csvfile:
+    with open('/Users/licheng/Desktop/work/宏伟食品/宏伟食品测试/宏伟食品测试（4.26-5.8）/1600kVA/1600.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerows(data_to_write)
 
 
 # 替换为你的文件夹路径
-directory_path = '/Users/licheng/Desktop/work/宏伟食品/宏伟食品测试5.26-6.26/0231'
+directory_path = '/Users/licheng/Desktop/work/宏伟食品/宏伟食品测试/宏伟食品测试（4.26-5.8）/1600kVA'
 extract_data_from_xls(directory_path)

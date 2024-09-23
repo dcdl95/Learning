@@ -2,7 +2,7 @@ import pandas as pd
 from fitparse import FitFile
 
 # 加载.fit文件
-fit_file = FitFile('你的文件路径/ride-0-2024-06-07-21-04-30.fit')
+fit_file = FitFile('/Users/licheng/Desktop/MATCH_875600-2024-08-26-05-28-46-log.st.fit')
 
 # 创建一个列表来保存数据
 data = []
@@ -18,7 +18,8 @@ for record in fit_file.get_messages('record'):
 df = pd.DataFrame(data)
 
 # 将DataFrame保存为.csv文件
-csv_file_path = '保存路径/ride-0-2024-06-07-21-04-30.csv'
-df.to_csv(csv_file_path, index=False)
+csv_file_path = '/Users/licheng/Desktop/MATCH_875600-2024-08-26-05-28-46-log.st.csv'
+df.to_csv(csv_file_path, index=False, encoding='utf-8')
 
 print(f"CSV文件已保存到 {csv_file_path}")
+

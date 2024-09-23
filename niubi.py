@@ -67,7 +67,7 @@ def process_data(file_path, summary_path, plot_path):
 
 
 # 使用示例
-file_path = '/Users/licheng/Desktop/work/宏伟食品/宏伟食品测试/宏伟食品测试（4.26-5.8）/630kVA/630.csv'
-summary_path = '/Users/licheng/Desktop/work/宏伟食品/宏伟食品测试/宏伟食品测试（4.26-5.8）/630kVA/630_1.csv'
-plot_path = '/Users/licheng/Desktop/work/宏伟食品/宏伟食品测试/宏伟食品测试（4.26-5.8）/630kVA/630.png'
+file_path = '/Users/licheng/Desktop/work/项目资料/浙江森日/森日11.csv'
+summary_path = '/Users/licheng/Desktop/work/项目资料/浙江森日/森日_6.csv'
+plot_path = '/Users/licheng/Desktop/work/项目资料/浙江森日/森日_6.png'
 process_data(file_path, summary_path, plot_path)
